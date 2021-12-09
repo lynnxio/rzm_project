@@ -17,16 +17,11 @@ class Item extends Model
 
     public function status()
     {
-        return $this->hasOne(Status::class);
+        return $this->belongsTo(Status::class);
     }
 
     public function category()
     {
-        return $this->hasOne(Category::class);
-    }
-
-    public function getAll()
-    {
-        return $this->all();
+        return $this->belongsTo(Category::class);
     }
 }
