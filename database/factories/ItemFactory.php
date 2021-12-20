@@ -19,6 +19,7 @@ class ItemFactory extends Factory
         return [
             'name' => $name,
             'code' => Str::camel($name),
+            'image' => $this->faker->imageUrl(),
             'qty_balance' => $this->faker->randomNumber(),
             'category_id' => Category::all('id')->random(),
             'status_id' => Status::all('id')->random(),

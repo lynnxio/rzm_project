@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("code");
+            $table->string("image");
             $table->integer("qty_balance")->default(0);
             $table->foreignId("category_id");
             $table->foreignId("status_id");
