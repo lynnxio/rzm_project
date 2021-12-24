@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Str;
 
 class AssetController extends Controller
 {
@@ -34,7 +35,9 @@ class AssetController extends Controller
     {
         $categories = Category::all();
         $statuses = Status::all();
-        return view('pages.asset.create', compact(['categories', 'statuses']));
+        return view('pages.asset.create', compact([
+            'categories', 'statuses'
+        ]));
     }
 
     /**
@@ -45,14 +48,23 @@ class AssetController extends Controller
      */
     public function store(Request $request): void
     {
-        $storeData = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'image' => 'max:255',
+            'code' => '',
             'qty_balance' => 'required|integer|max:255',
             'category_id' => 'required|integer'
         ]);
 
-        Asset::create($storeData);
+        $asset = new Asset;
+
+        $asset->name = $request->name;
+        $asset->code = Str::camel($request->name);
+        $asset->qty_balance =$request->qty_balance;
+        $asset->category_id = $request->category_id;
+        $asset->status_id = $request->status_id;
+
+        $asset->save();
     }
 
     /**

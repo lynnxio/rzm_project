@@ -17,7 +17,7 @@ class CreateAssetsTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("code");
-            $table->string("image");
+            $table->string("image")->nullable();
             $table->integer("qty_balance")->default(0);
             $table->foreignId("category_id");
             $table->foreignId("status_id");
