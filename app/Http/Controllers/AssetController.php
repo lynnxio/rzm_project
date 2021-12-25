@@ -46,10 +46,11 @@ class AssetController extends Controller
      *
      * @param Request $request
      */
-    public function store(Request $request): void
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|max:255',
+            'image' => 'required|mimes:jpg,bmp,png',
             'qty_balance' => 'required|integer|max:255',
             'category_id' => 'required|integer',
             'status_id' => 'required'
@@ -65,6 +66,8 @@ class AssetController extends Controller
         $asset->status_id = $request->status_id;
 
         $asset->save();
+
+        return redirect()->back()->with('success', "Asset has been saved!");
     }
 
     /**
