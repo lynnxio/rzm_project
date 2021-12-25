@@ -16,10 +16,11 @@ class AssetFactory extends Factory
     public function definition()
     {
         $name = $this->faker->name();
+        $filepath = $this->faker->image(public_path('images/assets'), '640', '480', null, true);
         return [
             'name' => $name,
             'code' => Str::camel($name),
-            'image' => $this->faker->imageUrl(),
+            'image' => str_replace('/home/vagrant/code/example_app/public/', '', $filepath),
             'qty_balance' => $this->faker->randomNumber(range(0, 255)),
             'category_id' => Category::all('id')->random(),
             'status_id' => Status::all('id')->random(),

@@ -38,7 +38,7 @@
 			@foreach ($assets as $asset)
 				<tr class="border-gray-300">
 					<td class="px-4 py-8 border-t border-b border-gray-300 text-sm">
-						<img src="{{ $asset->image }}" class="h-8"
+						<img src="{{ url($asset->image) }}" class="h-8"
 						     style="/* width: 100%; */ /* height: auto; */"/>
 					</td>
 
