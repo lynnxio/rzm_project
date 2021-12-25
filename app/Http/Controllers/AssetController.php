@@ -8,9 +8,11 @@ use App\Models\Status;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AssetController extends Controller
@@ -49,16 +51,16 @@ class AssetController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'image' => 'max:255',
             'qty_balance' => 'required|integer|max:255',
             'category_id' => 'required|integer',
             'status_id' => 'required'
         ]);
+        $request->file('image')->store('images/assets');
 
         $asset = new Asset;
         $asset->name = $request->name;
+        $asset->image = '/images/assets/'.$request->image;
         $asset->code = Str::camel($request->name);
-        $asset->image = $request->image;
         $asset->qty_balance = $request->qty_balance;
         $asset->category_id = $request->category_id;
         $asset->status_id = $request->status_id;
