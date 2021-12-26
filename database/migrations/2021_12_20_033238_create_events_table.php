@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration
             $table->date('end_date');
             $table->foreignId('user_id');
             $table->foreignId('status_id');
+            $table->foreignId('asset_id');
             $table->integer('qty');
             $table->timestamps();
         });
