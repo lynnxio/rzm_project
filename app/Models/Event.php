@@ -14,6 +14,16 @@ class Event extends Model
         'start_date', 'end_date'
     ];
 
+    public function getStartDateAttribute($value): string
+    {
+        return date('Y-m-d', strtotime($value));
+    }
+
+    public function getEndDateAttribute($value): string
+    {
+        return date('Y-m-d', strtotime($value));
+    }
+
     public function asset(): BelongsTo
     {
         return $this->belongsTo(Asset::class);

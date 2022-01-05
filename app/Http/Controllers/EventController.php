@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
+use App\Models\Category;
 use App\Models\Event;
+use App\Models\Status;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,9 +21,10 @@ class EventController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $events = Event::all();
+
         return view('pages.event.index', compact('events'));
     }
 
@@ -29,36 +33,39 @@ class EventController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
-        return view('pages.event.create');
+        $statuses = Status::all();
+        $assets = Asset::all();
+        return view('pages.event.create', compact('statuses', 'assets'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $updateData = $request->validate([
+        $request->validate([
             'start_date' => 'required|max:255',
             'end_date' => 'required|max:255',
             'status_id' => 'required|integer',
             'asset_id' => 'required|integer',
             'qty' => 'required|integer'
         ]);
+
         $event = new Event;
-        $event->start_date = date('Y-m-d H:i:s', strtotime($request->start_date));
-        $event->end_date = date('Y-m-d H:i:s', strtotime($request->end_date));
+        $event->start_date = date('Y-m-d', strtotime($request->start_date));
+        $event->end_date = date('Y-m-d', strtotime($request->end_date));
         $event->user_id = Auth::id();
         $event->status_id = $request->status_id;
         $event->asset_id = $request->asset_id;
         $event->qty = $request->qty;
         $event->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Event has been saved!');
     }
 
     /**
@@ -67,7 +74,7 @@ class EventController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id): View|Factory|Application
     {
         $event = Event::find($id);
 
@@ -80,10 +87,13 @@ class EventController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): View|Factory|Application
     {
         $event = Event::findOrFail($id);
-        return view('page.event.edit', compact('event'));
+        $categories = Category::all();
+        $statuses = Status::all();
+        $assets = Asset::all();
+        return view('pages.event.edit', compact(['event', 'categories', 'statuses', 'assets']));
     }
 
     /**
@@ -93,18 +103,21 @@ class EventController extends Controller
      * @param int $id
      * @return Application|Redirector|RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): Redirector|RedirectResponse|Application
     {
+
         $updateData = $request->validate([
             'start_date' => 'required|max:255',
             'end_date' => 'required|max:255',
-            'user_id' => 'required|integer',
             'status_id' => 'required|integer',
             'asset_id' => 'required|integer',
             'qty' => 'required|integer'
+
         ]);
+
+
         Event::whereId($id)->update($updateData);
-        return redirect('/events')->with('completed', 'Event has been updated');
+        return redirect()->route('events.index')->with('completed', 'Event has been updated');
     }
 
     /**
@@ -113,7 +126,7 @@ class EventController extends Controller
      * @param int $id
      * @return Application|Redirector|RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): Redirector|RedirectResponse|Application
     {
         $event = Event::findOrFail($id);
         $event->delete();

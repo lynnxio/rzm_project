@@ -17,7 +17,7 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-            'start_date' => $this->faker->date(),
+            'start_date' => $this->faker->date('Y-m-d'),
             'end_date' => $this->faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now'),
             'user_id' => User::all()->random()->id,
             'status_id' => Status::all()->random()->id,

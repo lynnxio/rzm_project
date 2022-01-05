@@ -1,14 +1,14 @@
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+		<h2 class="text-xl font-semibold leading-tight text-gray-800">
 			{{ __('Create Asset') }}
 		</h2>
 	</x-slot>
-	<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-white my-10 rounded shadow-md">
+	<div class="px-4 py-6 mx-auto my-10 max-w-7xl bg-white rounded shadow-md sm:px-6 lg:px-8">
 		<form method="post" action="{{ route('assets.store') }}" enctype="multipart/form-data">
 			<div class="flex justify-center">
 				@if ($errors->any())
-					<div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+					<div class="px-6 py-5 mb-3 mb-4 text-base text-red-700 bg-red-100 rounded-lg" role="alert">
 						<ul>
 							@foreach ($errors->all() as $error)
 								<li>{{ $error }}</li>
@@ -17,7 +17,7 @@
 					</div><br/>
 				@endif
 				@if ($message = Session::get('success'))
-					<div class="bg-blue-100 rounded-lg py-5 px-6 mb-4 text-base text-blue-700 mb-3" role="alert">
+					<div class="px-6 py-5 mb-3 mb-4 text-base text-blue-700 bg-blue-100 rounded-lg" role="alert">
 						{{$message}}
 					</div>
 				@endif
@@ -25,7 +25,7 @@
 			@csrf
 			<div class="flex justify-center">
 				<div class="mb-3 xl:w-96">
-					<label for="name" class="form-label inline-block mb-2 text-gray-700">Name</label>
+					<label for="name" class="inline-block mb-2 text-gray-700 form-label">Name</label>
 					<input name="name" type="text"
 					       class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 					       id="name" placeholder=""/>
@@ -33,7 +33,7 @@
 			</div>
 			<div class="flex justify-center">
 				<div class="mb-3 w-96">
-					<label for="formFile" class="form-label inline-block mb-2 text-gray-700">Image:</label>
+					<label for="formFile" class="inline-block mb-2 text-gray-700 form-label">Image:</label>
 					<input type="file" id="formFile" name="image" class="form-control
                         block
                         w-full
@@ -108,7 +108,7 @@
 			</div>
 			<div class="flex justify-center">
 				<div class="mb-3 xl:w-96">
-					<label for="qty_balance" class="form-label inline-block mb-2 text-gray-700"
+					<label for="qty_balance" class="inline-block mb-2 text-gray-700 form-label"
 					>Quantity</label
 					>
 					<input

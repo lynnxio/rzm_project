@@ -3,6 +3,7 @@
 namespace App\View\Components\TailwindElement;
 
 use App\Models\Asset;
+use App\Models\Category;
 use App\Models\Status;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -30,6 +31,7 @@ class Select extends Component
     {
         $statuses = Status::all();
         $assets = Asset::all();
-        return view('components.TailwindElement.select', compact('statuses', 'assets'));
+        $categories = Category::all();
+        return view('components.TailwindElement.select', compact('statuses', 'assets', 'categories'));
     }
 }

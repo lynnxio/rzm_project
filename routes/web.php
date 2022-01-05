@@ -15,12 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', static function () {
+    return redirect()->route('assets.index');
 });
 
-Route::resource('assets', AssetController::class)->middleware(['auth']);
+Route::middleware(['auth'])->group(function () {
+    [
+        Route::resource('assets', AssetController::class),
+        Route::resource('events', EventController::class),
+    ];
+});
 
-Route::resource('events', EventController::class)->middleware(['auth']);
 
 require __DIR__ . '/auth.php';

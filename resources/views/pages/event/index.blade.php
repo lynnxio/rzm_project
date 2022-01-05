@@ -56,6 +56,21 @@
 					<td class="px-4 py-8 border-t border-b border-gray-300 text-sm">
 						{{$event->status->name}}
 					</td>
+					<td class="px-4 py-8 border-t border-b border-gray-300 text-sm">
+						<a href="{{ route('events.edit', $event->id) }}"><span
+									class="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-xl py-1 px-5 text-white bg-green-400 border-green-400 hover:bg-green-600 hover:border-green-600">
+                                    Edit
+                                </span></a>
+						<form action="{{ route('events.destroy', $event->id) }}" method="post"
+						      style="display: inline-block">
+							@csrf
+							@method('DELETE')
+							<button
+									class="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-xl py-1 px-5 text-white bg-red-400 border-red-400 hover:bg-red-600 hover:border-red-600"
+									type="submit">Delete
+							</button>
+						</form>
+					</td>
 				</tr>
 			@endforeach
 

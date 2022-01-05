@@ -46,7 +46,7 @@ class AssetController extends Controller
      *
      * @param Request $request
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|max:255',
@@ -55,7 +55,6 @@ class AssetController extends Controller
             'category_id' => 'required|integer',
             'status_id' => 'required'
         ]);
-
 
         $asset = new Asset;
         $asset->name = $request->name;
@@ -122,7 +121,7 @@ class AssetController extends Controller
      * @param int $id
      * @return Application|RedirectResponse|Redirector
      */
-    public function destroy($id)
+    public function destroy(int $id): Redirector|RedirectResponse|Application
     {
         $asset = Asset::findOrFail($id);
         $asset->delete();

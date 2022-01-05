@@ -16,6 +16,7 @@
 
 	<!-- Scripts -->
 	<script src="{{ asset('js/app.js') }}" defer></script>
+	@bukStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -34,6 +35,7 @@
 		{{ $slot }}
 	</main>
 </div>
+@bukScripts
 </body>
 
 </html>

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Status;
-use App\Models\Category;
 use App\Models\Asset;
-use App\Models\User;
+use App\Models\Category;
 use App\Models\Event;
+use App\Models\Status;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,12 +25,6 @@ class DatabaseSeeder extends Seeder
         User::factory(1)->create();
         Event::factory(10)->create();
 
-        $asset = Asset::all();
 
-        Event::all()->each(function ($event) use ($asset) {
-            $event->asset()->attach(
-                $asset->random(rand(1, 3))->pluck('id')->toArray()
-            );
-        });
     }
 }
