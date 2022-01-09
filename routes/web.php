@@ -19,10 +19,10 @@ Route::get('/', static function () {
     return redirect()->route('assets.index');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->namespace('Api')->group(function () {
     [
-        Route::resource('assets', AssetController::class),
-        Route::resource('events', EventController::class),
+        Route::apiResource('assets', AssetController::class),
+        Route::apiResource('events', EventController::class),
     ];
 });
 
