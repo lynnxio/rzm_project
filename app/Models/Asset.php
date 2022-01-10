@@ -15,7 +15,7 @@ class Asset extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'image'
+        'name', 'image', 'code', 'category_id', 'status_id', 'qty_balance'
     ];
 
     public function status(): BelongsTo

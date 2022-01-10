@@ -11,7 +11,7 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'start_date', 'end_date'
+        'start_date', 'end_date', 'user_id', 'status_id', 'asset_id', 'qty'
     ];
 
     public function getStartDateAttribute($value): string

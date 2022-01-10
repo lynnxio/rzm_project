@@ -13,9 +13,8 @@
     "fruitcake/laravel-cors": "^2.0",
     "guzzlehttp/guzzle": "^7.0.1",
     "laravel/framework": "^8.65",
-    "laravel/sanctum": "^2.12",
-    "laravel/tinker": "^2.5",
-    "dingo/api": "^3.0.0"
+    "laravel/sanctum": "^2.13",
+    "laravel/tinker": "^2.5"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.10",

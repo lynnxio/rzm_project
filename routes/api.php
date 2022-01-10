@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\AssetController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//public
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+//protected Route
+Route::group(['middleware' => ['auth:sanctum']], static function () {
+
+    //Main
+    Route::resource('/assets', AssetController::class);
+    Route::resource('/events', EventController::class);
+
+    //Auth
+    Route::post('/logout', [AuthController::class, 'logout']);
 });

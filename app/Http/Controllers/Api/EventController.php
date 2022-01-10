@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Collection|Event[]
      */
-    public function index(): Response
+    public function index(): array|Collection
     {
         return Event::all();
     }
@@ -23,20 +23,20 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return mixed
      */
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
-        return Event::create($request->only('name'));
+        return Event::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return mixed
      */
-    public function show(int $id): Response
+    public function show(int $id): mixed
     {
         return Event::findOrFail($id);
     }
@@ -46,12 +46,12 @@ class EventController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Response
+     * @return mixed
      */
-    public function update(Request $request, $id): Response
+    public function update(Request $request, int $id): mixed
     {
         $event = Event::findOrFail($id);
-        $event->update($request->only(['name']));
+        $event->update($request->all());
         return $event;
     }
 
@@ -59,10 +59,15 @@ class EventController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return void
      */
-    public function destroy(int $id): Response
+    public function destroy(int $id): void
     {
         Event::findOrFail($id)->delete();
+    }
+
+    public function search(string $name)
+    {
+        return Event::all()->where('name', $name)->get();
     }
 }

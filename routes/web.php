@@ -19,11 +19,12 @@ Route::get('/', static function () {
     return redirect()->route('assets.index');
 });
 
-Route::middleware(['auth'])->namespace('Api')->group(function () {
+Route::middleware(['auth'])->group(function () {
     [
-        Route::apiResource('assets', AssetController::class),
-        Route::apiResource('events', EventController::class),
+        Route::resource('assets', AssetController::class),
+        Route::resource('events', EventController::class)
     ];
 });
+
 
 require __DIR__ . '/auth.php';
