@@ -16,3 +16,5 @@ yarn-error.log
 /public/images/assets/
 _ide_helper.php
 .phpstorm.meta.php
+.phpstorm.meta.php
+_ide_helper.php
